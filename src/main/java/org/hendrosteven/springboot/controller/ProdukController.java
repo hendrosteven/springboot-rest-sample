@@ -71,7 +71,7 @@ public class ProdukController {
         return produkDAO.getById(id);
     }
 
-    @RequestMapping(value = "/getll", method = RequestMethod.GET)
+    @RequestMapping(value = "/getall", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<Produk> getAll() {
         return produkDAO.getAll();
