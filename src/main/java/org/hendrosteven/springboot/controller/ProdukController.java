@@ -57,7 +57,7 @@ public class ProdukController {
         return produkDAO.update(produk);
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public void delete() {
         long id = Long.valueOf(req.getParameter("id"));
