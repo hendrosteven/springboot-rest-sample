@@ -11,6 +11,8 @@ import org.hendrosteven.springboot.dao.ProdukDAO;
 import org.hendrosteven.springboot.entity.Produk;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -31,43 +33,26 @@ public class ProdukController {
 
     @RequestMapping(value = "/insert", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public Produk insert() {
-        String kode = req.getParameter("kode");
-        String nama = req.getParameter("nama");
-        double harga = Double.valueOf(req.getParameter("harga"));
-        Produk produk = new Produk();
-        produk.setKode(kode);
-        produk.setNama(nama);
-        produk.setHarga(harga);
+    public Produk insert(@RequestBody Produk produk) {
         return produkDAO.insert(produk);
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
-    public Produk update() {
-        long id = Long.valueOf(req.getParameter("id"));
-        String kode = req.getParameter("kode");
-        String nama = req.getParameter("nama");
-        double harga = Double.valueOf(req.getParameter("harga"));
-        Produk produk = new Produk();
-        produk.setId(id);
-        produk.setKode(kode);
-        produk.setNama(nama);
-        produk.setHarga(harga);
+    public Produk update(@RequestBody Produk produk) {
         return produkDAO.update(produk);
     }
 
-    @RequestMapping(value = "/delete", method = RequestMethod.GET)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public void delete() {
-        long id = Long.valueOf(req.getParameter("id"));
+    public boolean delete(@PathVariable("id") long id) {
         produkDAO.delete(id);
+        return true;
     }
 
-    @RequestMapping(value = "/getbyid", method = RequestMethod.GET)
+    @RequestMapping(value = "/getbyid/{id}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public Produk getById() {
-        long id = Long.valueOf(req.getParameter("id"));
+    public Produk getById(@PathVariable("id") long id) {
         return produkDAO.getById(id);
     }
 
